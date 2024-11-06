@@ -1,0 +1,33 @@
+Team17: The Method Men
+
+URL of the Repository: 
+https://github.com/Sam-Scott-McMaster/the-team-assignment-team-17-method-men
+
+Team Member Names & Student Numbers:
+Cole Smith: smitc50 				400517094
+Ben Bloomfield: bloomfib 			400509353
+Behzad Janjua: janjuab			400516103
+Michael Papadopoulos: papadm2 		400510668
+
+GitHub ids w/ MacID:
+cole11smith33             (smitc50)
+benbloomie		(bloomfib)
+Behzadjanjua		(janjuab)
+maikulol 		(papadm2)
+
+Initial Idea: 
+Name of Idea: Calculator
+
+Type of App (Command Line, GUI, Bash, C):
+GUI w/ C
+
+Description of Functionality:
+Addition, Subtraction, Division, Multiplication
+
+Assign Roles:
+Test Cases + Workflow: Cole
+GUI: Behzad, Michael 
+Calculations: Ben Bloomfield
+
+This Calculator app is a GUI-based tool built in C, featuring a clean interface with numbers 0 to 9 for easy input. It offers essential arithmetic functions, including addition, subtraction, multiplication, and division, allowing users to perform calculations quickly and accurately. 
+
