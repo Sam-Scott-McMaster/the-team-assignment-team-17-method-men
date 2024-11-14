@@ -1,0 +1,150 @@
+Title of the app: 
+The Calculator Method
+
+High-level description: 
+a) What kind of app, what will it do, how will the user use it?
+    The Calculator Method is a simple and user-friendly calculator app that will developed using C 
+and will implement a graphical user interface (GUI) to communicate messages and data with the user. 
+It allows users to perform basic operations such as addition, subtraction, multiplication, and division, 
+which are handled by clicking different buttons that will be displayed on the GUI. The primary purpose 
+should be to provide a fast and straightforward way to perform basic calculations, without featuring 
+unnecessary and complex features.
+    Upon running the program, it will upon up an app that contains a basic calculator layout. The 
+interface will incorporate buttons for numbers 0 through 9, and arithmetic operands to allow the user 
+to manipulate how they want data to be analyzed. It will also incorporate a clear and equal button to 
+recognize when to stop reading user input and determine the corresponding output based on what the user 
+has entered. We also plan on including brackets to allow the user to choose the order in which operations 
+are performed.
+b) What is the context in which this app will be used?
+    The calculator app will be used as a simple, GUI-based tool for performing basic arithmetic operations: 
+addition, subtraction, multiplication, and division. It is designed to provide a straightforward and 
+visually accessible interface, allowing users to perform quick calculations efficiently. The app could 
+be helpful in educational or professional settings where users need a compact, easy-to-use calculator 
+without the complexity of more advanced tools.  Its design focuses on simplicity and ease of use, making 
+it accessible to a wide range of users.
+c) What constraints are there on your design?
+    Due to the timeframe, we will be limited by the scale of our project. Given the lack of development 
+time, it seems unlikely that we will have enough time to diligently implement more than the rudimentary 
+calculator functionalities. We will not be able to have the same amount of options that Symbolab or 
+WolframAlpha have. Our calculator will be missing functionality for integrals, derivatives, functions, 
+matrices, Wronskians, Jacobians, LaPlaces transforms, cross/dot products of vectors, etc. Our calculator 
+will be constrained to addition, subtraction, multiplication and division, and brackets, to give the 
+ability to evaluate expressions.
+    Another constraint would be skill level, everyone in the group has no prior experience with C before 
+this course. This means basic things such as implementing a GUI, will be not only more difficult to make 
+but also more difficult to optimize. Because of the skill gap, having effective and efficient code will 
+prove a constraint. 
+
+Team Member Names, Student Numbers, GitHub ID’s & Role Titles:
+1) Cole Smith
+400517094 (smitc50)
+cole11smith33
+Handling user input (error casing) / test cases
+2) Michael Papadopoulos
+400510668 (papadm2)
+maikulol
+G.U.I./Design
+3) Behzad Janjua
+400516103 (janjuab)
+behzadjanjua
+G.U.I/Design
+4) Ben Bloomfield
+400509353 (bloomfib)
+benbloomie
+Test cases for succesfull runs / programing functions to handle different calculator operations
+
+Role Descriptions:
+1) Cole Smith
+    To contribute to the group C assignment, The Calculator Method, I intend to handle the user input 
+from the GUI. Included in this is knowing when to raise exceptions and determining what is and isn’t 
+acceptable input for the program. Included within this, is determining acceptable input parameters, 
+and raising appropriate exceptions. This ensures that our code will not error out, and fail.
+    Another responsibility I have been tasked with is writing test cases for unexpected usage. Through 
+the usage of a CI pipeline setup alongside Ben, I will write input cases for error testing. Examples of 
+this include signs from being inputted twice, (9 + + 11 or 9 x x 11), preventing a division by zero error, 
+and incomplete inputs (inputting just 123 or 23 x, etc.). 
+2) Michael Papadopoulos
+    Working with Behzad, I plan on contributing to developing the Graphical User Interface for our calculator 
+app, helping with its aesthetics and overall functionality. I will do this by conducting extensive research 
+into the GIMP tool kit to learn how to effectively use it for our purposes. Alongside learning how to use GTK 
+effectively, I will also help develop and write the code with Behzad to link our GUI with our “back-end”, 
+opening up further and more advanced possibilities for our calculator app. To promote the idea of minimalism 
+and aesthetics (both of which are integral for designing a good-looking calculator), I will find a basic colour 
+palette and a font set that the team deems to be most visually appealing and implement them into our design. 
+Of course, in execution, I hope to accomplish much more than this, and I will try to aid my teammates with 
+their tasks if/when necessary.
+3) Behzad Janjua
+    Working with Michael, I’ll focus on refining both the structure and functionality of our calculator app’s 
+GUI using the GIMP toolkit. This toolkit allows us to create a user interface that is both visually appealing 
+and efficient, integrating essential elements like responsive buttons and clear feedback for user actions. I’ll 
+be collaborating closely with the backend calculations team to ensure a seamless connection between the front-end 
+interface and back-end operations, making sure calculations are processed accurately based on user inputs.
+    Additionally, I’ll work with Michael to select an effective color palette and aesthetic style, aiming for a 
+minimalistic design that is visually appealing and easy to navigate. I’ll also coordinate with Cole to thoroughly 
+test and debug the GUI, catching any issues early to ensure a smooth user experience. 
+4) Ben Bloomfield
+    For this group assignment, I plan on contributing to the primary functionalities of the code, which involve 
+handling the operations with the user data. Throughout this process, I will be collaborating alongside Cole, and 
+integrating his results into the main application logic. Specifically, I’ll be focusing on ensuring that each 
+operation’s output is correctly displayed in this user interface. This starts from developing various functions 
+for each operations intent, ensuring proper order of operations is used when computing results, and error handling 
+functions to check for cases such as division by zero.
+	Additionally, I will develop various test cases for expected functionality, to ensure the program is handling 
+all the operations on the data correctly. This will include testing basic operations, and more complex scenarios 
+involving multiple operations and more than two numbers, to ensure the calculator remains reliable under different 
+conditions.
+
+Development Increments:
+Increment 1: Design & Development
+    - Have an extremely basic G.U.I. setup, allowing for user interaction and a resulting displayed value through 
+      the G.U.I.
+    - Developing the G.U.I.: Michael & Behzad
+    - Internal processing of user interaction: Ben & Cole
+    - 2024-11-18
+Increment 2: Design & Development
+    - A very fundamental calculator that can, at the very least, perform addition and subtraction. Takes user input 
+      from the G.U.I. and performs internal processing to output the sum or difference to the G.U.I.
+    - G.U.I.: Michael & Behzad    
+    - Processing the user input and performing operations (addition/subtraction): Ben & Cole
+    - 2024-11-20
+Increment 3: Building & Testing
+    - Finalize workflow and build file, which implements and includes numerous test cases to ensure the program can 
+      handle all possible scenarios (Will use GCOV coverage reports to verify). Add help features with a polished use 
+      case and description. 
+    - Create a README.md file with instructions and use cases for the app. Adjust and modify the development plan to 
+      accurately reflect progress and changes.
+    - Workflow & Testing: Ben & Cole
+    - README & Adjustments: Behzad & Mike
+    - 2024-11-27
+Increment 4: Implementation
+    - Implement a gprof performance report to see if any of the code can be revised and improved. 
+    - Ensure all features and functionality are satisfactory.
+    - gprof report: Behzad & Mike
+    - Improve funcitonalities: Ben & Cole
+    - 2024-12-1
+Increment 5: Implementation
+    - The final deliverable code will be pushed and released. The final reflection report will be completed and submitted.
+    - Group
+    - 2024-12-3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
