@@ -1,13 +1,30 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include "arithmeticOperations.h"
 #include "bedmas.h"
-#include "arithmaticOperations.h"
 
-double bedmas(char* expression){
+
+double bedmasCalculation(char* expression){
     int length = expressionLength(expression);
+    double equals = 0;
     for(int element = 0; element < length; element++){
-        printf("%c ", expression[element]);
+        switch (expression[element]) {
+            case '+':
+                equals= addition(expression[element-1] - '0', expression[element+1] - '0');
+                break;
+            case '-':
+                subtraction(expression[element-1] - '0', expression[element+1] - '0');
+                break;
+            case '*':
+                mutliplication(expression[element-1] - '0', expression[element+1] - '0');
+                break;
+            case '/':
+                division(expression[element-1] - '0', expression[element+1] - '0');
+                break;
+        }
     }
+    return equals;
 }
 
 int expressionLength(char* expression){
@@ -16,13 +33,10 @@ int expressionLength(char* expression){
 }
 
 int main(){
-    //potential option as bedmas is already built in
-    printf("%d\n", (1 + 3) * 4);
-
     //alternatively we could build our own personal bedmas system with the arithmaticOperations file and some logic
-    char expression[] = {'1','2','3'};
+    char expression[] = {'1','+','3'};
 
-    bedmas(expression);
-
+    double equals = bedmasCalculation(expression);
+    printf("Sums to be %.0f\n", equals);
     return 0;
 }

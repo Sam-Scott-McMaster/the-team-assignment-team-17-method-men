@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <stdio.h>
+
 /* The Method Men, Benjamin Bloomfield, 2024
  *
  * This program includes the four main operations that can be performed on user inputted numbers.
