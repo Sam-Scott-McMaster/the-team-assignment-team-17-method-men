@@ -98,6 +98,15 @@
             </layout>
           </object>
         </child>
+        <child>
+          <object id="button_help" class="GtkButton">
+            <property name="label">Help</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
       </object>
     </child>
   </object>
