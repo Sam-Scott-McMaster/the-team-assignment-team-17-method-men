@@ -13,7 +13,7 @@ double createNumbers(const char** expression) {
     return number;
 }
 
-void seperateExpression(const char* expression, double* numbers, char* operators, int* numberCount, int* operatorCount) {
+void separateExpression(const char* expression, double* numbers, char* operators, int* numberCount, int* operatorCount) {
     *numberCount = 0;
     *operatorCount = 0;
     const char* ptr = expression;
@@ -79,7 +79,7 @@ double bedmasCalculation(char* expression) {
     int numberCount = 0;
     int operatorCount = 0;
     //divides the expression into operators and numbers, return these lists through pointer parameters
-    seperateExpression(expression, numbers, operators, &numberCount, &operatorCount);
+    separateExpression(expression, numbers, operators, &numberCount, &operatorCount);
     //iterates through numbers and operators and for each multiplication or division operator the appropriate calulcation is performed
     multiDiv(numbers, operators, &numberCount, &operatorCount);
     //iterates through numbers and operators and for each addition or subtraction operator the appropriate calulcation is performed
@@ -94,14 +94,14 @@ int main() {
     double equals = bedmasCalculation(expression);
     printf("Sums to be %.2f\n", equals);
 
-    char expression[] = "61*2/3+4";
+    char expression2[] = "10/3-7";
 
-    double equals = bedmasCalculation(expression);
-    printf("Sums to be %.2f\n", equals);
+    double equals2 = bedmasCalculation(expression2);
+    printf("Sums to be %.2f\n", equals2);
 
-    char expression[] = "61*2/3+4";
+    char expression3[] = "61*2/3+4";
 
-    double equals = bedmasCalculation(expression);
-    printf("Sums to be %.2f\n", equals);
+    double equals3 = bedmasCalculation(expression3);
+    printf("Sums to be %.2f\n", equals3);
     return 0;
 }
