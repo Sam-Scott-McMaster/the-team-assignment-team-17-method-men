@@ -1,46 +1,71 @@
 #include <gtk/gtk.h>
 #include <glib/gstdio.h>
 
-// static void quit_cb (GtkWindow *window) {
-//   gtk_window_close (window);
-// }
+/*
+ * Global variables that will be used to store the input sequence from the calculator 
+ * userInput is initialized within the main() function
+*/ 
+char *userInput;
+int currentIndex = 0;
 
-// Stores each number being entered by the calculator
-int currentNumber[50];
-int currentDigitLocation = 0; 
 
-// Stores the previously entered number
-int pastNumber[50];
+// Returns a string pointer to an allocated block of memory 100 bytes long
+char *string_memory_allocate() {
+  char *inputString = calloc(100, sizeof(char));
+  if (inputString == NULL) {
+    fprintf(stderr, "Not enough memory to store string input\n");
+    exit(EXIT_FAILURE);
+  }
+  
+  return inputString;
+}
+
+// Stores characters in string at currentIndex position
+static void store_input_value(char value_to_store) { 
+  userInput[currentIndex] = value_to_store;
+  currentIndex++;
+}
+
+// Allocates a new string pointer using string_memory_allocate(), frees old pointer
+char *reset_userInput(char *inputString) {
+  char *resetString = string_memory_allocate();
+  free(inputString);
+
+  currentIndex = 0; // Resets index back to 0
+  return resetString;
+}
 
 static void on_digit_click(GtkButton *button, gpointer user_data) {
-  int digit = GPOINTER_TO_INT(user_data);
-  currentNumber[currentDigitLocation] = digit; // Assigns each digit to its respective location in currentNumber
-  g_print("The current digit location is: %d\n", currentDigitLocation);
-  currentDigitLocation++;
+  int digit = GPOINTER_TO_INT(user_data); // Retrieve digit input from pointer
+  store_input_value(digit+'0'); // Store digit in input string
+
+  g_print("The current input index location is: %d\n", currentIndex);
   g_print("Button %d was pressed!\n", digit);
   // Will pass this digit off into backend calculator processing functions
 }
 
+// Resizes the string to minimal necessary byte size
+char *string_reallocate(char *stringInput) {
+  char *resizedString = realloc(stringInput, strlen(userInput)+1);
+  
+  return resizedString;
+}
+
+// Acts as an input sequence break, processes' input and then resets it for next input sequence
 static void on_equal_button_clicked(GtkButton *button, gpointer user_data) {
     g_print("The equal button was pushed!\n");
     
-    for (int currentIndex = 0; currentIndex < currentDigitLocation; currentIndex++) {
-      g_printf("%d", currentNumber[currentIndex]);
-      pastNumber[currentIndex] = currentNumber[currentIndex]; // Assigns the pastNumber to the currentNumber
-      currentNumber[currentIndex] = 0; // Resets each digit of currentNumber to zero
-    }
-
-    currentDigitLocation = 0;
+    userInput = string_reallocate(userInput);
+    g_printf("%s\n", userInput);
+    g_printf("Size of string: %ld\n", strlen(userInput));
+    userInput = reset_userInput(userInput);
     g_print("\n");
 }
 
 static void on_add_button_clicked(GtkButton *button, gpointer user_data) {
     g_print("The add button was pushed!\n");
 
-
-
-    currentDigitLocation = 0;
-    g_print("\n");
+    store_input_value('+');
 }
 
 
@@ -89,6 +114,8 @@ static void activate (GtkApplication *app, gpointer user_data) {
 
 
 int main (int argc, char *argv[]) {
+  userInput = string_memory_allocate(); // Initialize the input string
+
   #ifdef GTK_SRCDIR
     g_chdir (GTK_SRCDIR);
   #endif
@@ -99,5 +126,6 @@ int main (int argc, char *argv[]) {
   int status = g_application_run (G_APPLICATION (calculatorApp), argc, argv);
   g_object_unref (calculatorApp);
 
+  free(userInput);
   return status;
 }
