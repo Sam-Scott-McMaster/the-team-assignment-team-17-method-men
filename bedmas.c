@@ -5,9 +5,11 @@
 #include "arithmeticOperations.h"
 #include "bedmas.h"
 
-// Identify numbers, supporting decimals and negative numbers
+//identify numbers from a string on digits
 double createNumbers(const char** expression) {
     char* endPtr;
+    // learned about strtod from https://www.ibm.com/docs/ja/rdfi/9.6.0?topic=functions-strftime-convert-datetime-string
+    //using to convert from string to a double
     double number = strtod(*expression, &endPtr);
     *expression = endPtr;
     return number;
@@ -19,14 +21,13 @@ void separateExpression(const char* expression, double* numbers, char* operators
     const char* ptr = expression;
     
     while (*ptr) {
+        //if pointing to a digit, combine all sequential digits to form a number, store this in the numbers array 
         if (isdigit(*ptr)) {
             numbers[(*numberCount)++] = createNumbers(&ptr);
         }
+        //if pointing to a operator, add the operator to the operators list
         else if (strchr("+-*/", *ptr)) {
             operators[(*operatorCount)++] = *ptr++;
-        }
-        else {
-            ptr++;
         }
     }
 }
@@ -61,9 +62,12 @@ void multiDiv(double* numbers, char* operators, int* numberCount, int* operatorC
 
 double addSub(double* numbers, char* operators, int operatorCount) {
     double result = numbers[0];
+    //iterate through operators list
     for (int operator = 0; operator < operatorCount; operator++) {
+        //if operator is +, add the result with the next number in the array
         if (operators[operator] == '+') {
             result = addition(result, numbers[operator + 1]);
+        //if operator is -, subtract the result with the next number in the array
         } else if (operators[operator] == '-') {
             result = subtraction(result, numbers[operator + 1]);
         }
