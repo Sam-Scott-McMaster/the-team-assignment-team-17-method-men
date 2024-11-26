@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "evaluateWithParameters.h"
+#include "evaluateWithParentheses.h"
 #include "bedmas.h"
 
 // adjusts the values of the inpuuted array, to merge multi-digit numbers
-char* adjustValues(char* data, int size) {
-    char* newArray = (char*)malloc(size*sizeof(char));    // allocates memory for the adjusted array
+char* adjustValues(char* data, int *size) {
+    char* newArray = (char*)malloc(*size*sizeof(char));    // allocates memory for the adjusted array
     if (newArray == NULL) {
         printf("Memory allocation failed!\n");
         return NULL;
@@ -14,13 +14,13 @@ char* adjustValues(char* data, int size) {
     int newArrayIndex = 0;
 
     // iterates through each element in the given array
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < *size; i++) {
         // checks if the char index is a number, and not an operation
         if (data[i] >= '0') {
             int result = 0; // resets the result variable for each integer found
 
             // loops while indeces are valid integers
-            while (i < size && data[i] >= '0') {
+            while (i < *size && data[i] >= '0') {
                 result = result * 10 + (data[i] - '0'); // logic to transform consecutive digits to its proper number
                 i++;    // moves index over after each number iteration
             }
@@ -35,6 +35,7 @@ char* adjustValues(char* data, int size) {
         }
     }
     newArray[newArrayIndex] = '\0'; // appends the null terminator to the end of the array
+    *size = newArrayIndex;  // updates the size
     return newArray;
 }
 
@@ -110,7 +111,6 @@ char* evaluateWithParentheses(char* data, int *dataSize) {
         }
 
         finalArray[newArrayIndex] = '\0';    // appends the null terminator to the end of the array
-        free(data); // frees the memory allocated to the old data
         data = finalArray; // updates it after applying the parentheses
         *dataSize = newArraySize;   // updates the size
     }

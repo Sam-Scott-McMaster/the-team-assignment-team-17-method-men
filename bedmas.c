@@ -91,21 +91,3 @@ double bedmasCalculation(char* expression) {
 
     return result;
 }
-
-int main() {
-    char expression[] = "61*2/3+4";
-
-    double equals = bedmasCalculation(expression);
-    printf("Sums to be %.2f\n", equals);
-
-    char expression2[] = "10/3-7";
-
-    double equals2 = bedmasCalculation(expression2);
-    printf("Sums to be %.2f\n", equals2);
-
-    char expression3[] = "61*2/3+4";
-
-    double equals3 = bedmasCalculation(expression3);
-    printf("Sums to be %.2f\n", equals3);
-    return 0;
-}
