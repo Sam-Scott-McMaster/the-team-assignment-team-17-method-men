@@ -11,6 +11,10 @@ static void on_digit_click(GtkButton *button, gpointer user_data) {
   // Will pass this digit off into backend calculator processing functions
 }
 
+static void on_help_button_clicked(GtkButton *button, gpointer user_data) {
+    g_print("The help button was pushed!\n");
+}
+
 static void activate (GtkApplication *app, gpointer user_data) {
   /* Construct a GtkBuilder instance and load our UI description */
   GtkBuilder *builder = gtk_builder_new ();
@@ -29,6 +33,8 @@ static void activate (GtkApplication *app, gpointer user_data) {
     GObject *button = gtk_builder_get_object (builder, currentButton);
     g_signal_connect(button, "clicked", G_CALLBACK(on_digit_click), GINT_TO_POINTER(currentDigit));
   }
+  GObject *help_button = gtk_builder_get_object(builder, "button_help");
+  g_signal_connect(help_button, "clicked", G_CALLBACK(on_help_button_clicked), NULL);
 
   gtk_widget_set_visible (GTK_WIDGET (window), TRUE);
 
