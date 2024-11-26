@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "evaluateWithParameters.h"
+#include "bedmas.h"
 
 // adjusts the values of the inpuuted array, to merge multi-digit numbers
 char* adjustValues(char* data, int size) {
@@ -23,7 +25,7 @@ char* adjustValues(char* data, int size) {
                 i++;    // moves index over after each number iteration
             }
             sprintf(&newArray[newArrayIndex], "%d", result);   // stores the number in the updated array as chars
-            newArrayIndex = i;   // updates the index aftering adding the value
+            newArrayIndex += sprintf(&newArray[newArrayIndex], "%d", result);   // updates the index aftering adding the value
             i--;    // decrements i since while loop adds extra increment
         } 
         // if index is not a digit, simply append it to the array, and increment the new array index
@@ -62,16 +64,28 @@ char* evaluateWithParentheses(char* data, int *dataSize) {
             break;
         }
 
-        // passes data array, with parentheses positions to other method to perform calculation 
-        // int parenthesesResult = bedmasCalculation(data, openPosition + 1, closedPosition - 1);
-        int parenthesesResult = 99; // placeholder
-        char resultString[10];  // allocates space for the result string
-        int resultLength = sprintf(resultString, "%d", parenthesesResult);  // writes parenthesesResult to resultString, and stores the length
-        int newArraySize = *dataSize - (closedPosition - openPosition + 1) + resultLength; // adjusts new array size
+        int subExpressionLength = closedPosition - openPosition - 1;  // assigns value to represent size of the new array
+        // allocates memory for the sub expression
+        char* subExpression = (char*)malloc((subExpressionLength + 1) * sizeof(char));    // adds an extra element for string terminator
+        if (subExpression == NULL) {
+            printf("Memory allocation failed.\n");
+            return NULL;
+        }
 
+        strncpy(subExpression, &data[openPosition + 1], subExpressionLength); // copies over all of the data within the parantheses to the sub expression
+        subExpression[subExpressionLength] = '\0';    // assigns string terminator
+
+        // passes data array, with parentheses positions to other method to perform calculation 
+        double parenthesesResult = bedmasCalculation(subExpression); // performs the calculation using the sub expression
+        free(subExpression);    // frees memory for the sub expression after it's done being used
+
+        char resultString[10];  // allocates space for the result string
+        int resultLength = sprintf(resultString, "%.2f", parenthesesResult);  // writes parenthesesResult to resultString, and stores the length
+        
+        int newArraySize = *dataSize - (closedPosition - openPosition + 1) + resultLength; // adjusts new array size
         // allocates memory for array to hold the values inside the parantheses
-        char* insideParentheses = (char*)malloc(newArraySize * sizeof(char));   
-        if (insideParentheses == NULL) {
+        char* finalArray = (char*)malloc(newArraySize * sizeof(char));   
+        if (finalArray == NULL) {
             printf("Memory allocation failed!\n");
             return NULL;
         }
@@ -79,46 +93,26 @@ char* evaluateWithParentheses(char* data, int *dataSize) {
         // copies everything before the open paranthesis
         int newArrayIndex = 0;
         for (int i = 0; i < openPosition; i++) {
-            insideParentheses[newArrayIndex] = data[i];
+            finalArray[newArrayIndex] = data[i];
             newArrayIndex++;
         }
 
         // copies the result string from between the parentheses
         for (int i = 0; i < resultLength; i++) {
-            insideParentheses[newArrayIndex] = resultString[i];
+            finalArray[newArrayIndex] = resultString[i];
             newArrayIndex++;
         }
 
         // copies everything after the close parenthesis
         for (int i = closedPosition + 1; i < *dataSize; i++) {
-            insideParentheses[newArrayIndex] = data[i];
+            finalArray[newArrayIndex] = data[i];
             newArrayIndex++;
         }
 
-        insideParentheses[newArrayIndex] = '\0';    // appends the null terminator to the end of the array
+        finalArray[newArrayIndex] = '\0';    // appends the null terminator to the end of the array
         free(data); // frees the memory allocated to the old data
-        data = insideParentheses; // updates it after applying the parentheses
+        data = finalArray; // updates it after applying the parentheses
         *dataSize = newArraySize;   // updates the size
     }
     return data;
-}
-
-
-int main() {
-    // set of data received from the GUI functions
-    char data[] = {'(', '9', '1', '+', '8', ')', '*', '3', '5', '6'};
-    int size = sizeof(data) / sizeof(data[0]);
-
-    // adjusts the values of the inputted array
-    char* adjustedArray = adjustValues(data, size);
-    if (adjustedArray == NULL) {
-        printf("Memory allocation failed!\n");
-        return 1;
-    }
-    printf("Adjusted array: %s\n", adjustedArray);
-    adjustedArray = evaluateWithParentheses(adjustedArray, &size);
-    printf("Expression after evaluating parentheses: %s\n", adjustedArray);
-
-    free(adjustedArray);
-    return 0;
 }
