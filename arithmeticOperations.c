@@ -38,7 +38,7 @@ double subtraction(double num1, double num2) {
  * Function Description:
  *  Multiplies the two numbers that are passed through as arguments, and returns the product.
 */
-double mutliplication(double num1, double num2) {
+double multiplication(double num1, double num2) {
     double numberProduct = num1 * num2;
     return numberProduct;
 }
