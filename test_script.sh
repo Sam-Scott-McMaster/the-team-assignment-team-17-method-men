@@ -86,34 +86,34 @@ test() {
 
 
 # 1. addition test
-test './main' 0 "1+2" 'Final result: 3.00' ''
+test './cmain' 0 "1+2" 'Final result: 3.00' ''
 
 # 2. subtraction test
-test './main' 0 "5-3" 'Final result: 2.00' ''
+test './cmain' 0 "5-3" 'Final result: 2.00' ''
 
 # 3. multiplication test
-test './main' 0 "4*2" 'Final result: 8.00' ''
+test './cmain' 0 "4*2" 'Final result: 8.00' ''
 
 # 4. division test
-test './main' 0 "8/2" 'Final result: 4.00' ''
+test './cmain' 0 "8/2" 'Final result: 4.00' ''
 
 # 5. mixed operations
-test './main' 0 "3+4*2" 'Final result: 11.00' ''
+test './cmain' 0 "3+4*2" 'Final result: 11.00' ''
 
 # 6. mixed operations 2
-test './main' 0 '12*3/3' 'Final result: 12.00' ''
+test './cmain' 0 '12*3/3' 'Final result: 12.00' ''
 
 # 7. parenthese with higher precedence
-test './main' 0 "(3+4)*2" 'Final result: 14.00' ''
+test './cmain' 0 "(3+4)*2" 'Final result: 14.00' ''
 
 # 8. nested parentheses
-test './main' 0 "((2+3)-5)*2" 'Final result: 0.00' ''
+test './cmain' 0 "((2+3)-5)*2" 'Final result: 0.00' ''
 
 # 9. zero as input
-test './main' 0 "0" 'Final result: 0.00' ''
+test './cmain' 0 "0" 'Final result: 0.00' ''
 
 # 10. negative result
-test './main' 0 "3-7" 'Final result: -4.00' ''
+test './cmain' 0 "3-7" 'Final result: -4.00' ''
 
 # return code
 exit $fails
