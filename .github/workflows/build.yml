@@ -2,7 +2,7 @@ name: bedmas-calculations branch of Team 17 Group assignment
 
 on:
   push:
-    branches: [ " bedmas-calculations" ]
+    branches: [ "bedmas-calculations" ]
 
 jobs:
   build:
