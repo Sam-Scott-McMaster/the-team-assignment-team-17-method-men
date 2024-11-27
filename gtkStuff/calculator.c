@@ -6,6 +6,7 @@
  * userInput is initialized within the main() function
  */
 char *userInput;
+GtkLabel *input_label;
 int currentIndex = 0;
 
 // Returns a string pointer to an allocated block of memory 100 bytes long
@@ -43,6 +44,11 @@ static void on_digit_click(GtkButton *button, gpointer user_data)
   int digit = GPOINTER_TO_INT(user_data); // Retrieve digit input from pointer
   store_input_value(digit + '0');         // Store digit in input string
 
+  /// Label Code
+  char *new_label_text = g_strdup_printf("Input: %s", userInput);
+  gtk_label_set_text(input_label, new_label_text); // Update the label
+  g_free(new_label_text); // Free memory for the temporary string
+
   g_print("The current input index location is: %d\n", currentIndex);
   g_print("Button %d was pressed!\n", digit);
   // Will pass this digit off into backend calculator processing functions
@@ -73,6 +79,11 @@ static void on_add_button_clicked(GtkButton *button, gpointer user_data)
   g_print("The add button was pushed!\n");
 
   store_input_value('+');
+
+  /// Label Code
+  char *new_label_text = g_strdup_printf("Input: %s", userInput);
+  gtk_label_set_text(input_label, new_label_text);
+  g_free(new_label_text);
 }
 
 static void on_subtract_button_clicked(GtkButton *button, gpointer user_data)
@@ -80,15 +91,23 @@ static void on_subtract_button_clicked(GtkButton *button, gpointer user_data)
   g_print("The subtract button was pushed!\n");
 
   store_input_value('-');
+  
+  /// Label Code
+  char *new_label_text = g_strdup_printf("Input: %s", userInput);
+  gtk_label_set_text(input_label, new_label_text);
+  g_free(new_label_text);
 }
 
 // Help callback function, outputs application instructions to whatever terminal was used to launch the application
 static void on_help_button_clicked(GtkButton *button, gpointer user_data)
 {
-  g_print("This app is in very early development, and only contains the basic calculator functions\n");
-  g_print("These functions include: addition and subtraction.\nIn order to properly operate this calculator, follow these steps:\n");
-  g_print("1: Enter the first number you would like to add, or subtract from\n2: Select the add or subtract operator\n3: Enter the second number you are adding with the first, or subtracting from the first\n");
-  g_print("4: Press the equals button to show the sum/difference\n");
+  g_print("Welcome to the calculator app! Please note that this application is still in early development and currently supports only basic functions.\n");
+  g_print("Available operations include: addition (+) and subtraction (-).\n");
+  g_print("To use this calculator, follow these simple steps:\n");
+  g_print("1. Enter the first number you wish to calculate.\n");
+  g_print("2. Choose the desired operation (add or subtract).\n");
+  g_print("3. Enter the second number for the calculation.\n");
+  g_print("4. Press the equals button to view the result.\n");
 }
 
 static void activate(GtkApplication *app, gpointer user_data)
@@ -100,6 +119,8 @@ static void activate(GtkApplication *app, gpointer user_data)
   /* Connect signal handlers to the constructed widgets. */
   GObject *window = gtk_builder_get_object(builder, "window");
   gtk_window_set_application(GTK_WINDOW(window), app);
+
+  input_label = GTK_LABEL(gtk_builder_get_object(builder, "input_label"));
 
   // Creates buttons 0 through 9, connects them to the on_digit_click() function
   // builder.ui xml is where each button is "styled"
