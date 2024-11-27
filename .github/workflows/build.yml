@@ -30,12 +30,6 @@ jobs:
     - name: Run makefile
       run: make cmain
 
-    - name: debug
-      run: ls
-    
-    - name: run one test
-      run: ./cmain <<< "12*2"
-
     - name: run test script
       run: ./test_script.sh > test_results.txt
 

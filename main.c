@@ -11,10 +11,7 @@ int main() {
     //char data[] = {'(', '9', '+', '8', ')', '*', '3', '6'};
     int maxSize = 100;
     char data[100];
-    if (fgets(data, maxSize, stdin) == NULL) { 
-        fprintf(stderr, "Error reading input.\n");
-        return 1;
-    }
+    fgets(data, maxSize, stdin);
 
     data[strcspn(data, "\n")] = '\0';
 
