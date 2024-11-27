@@ -9,10 +9,16 @@
 int main() {
     // set of data received from the GUI functions
     //char data[] = {'(', '9', '+', '8', ')', '*', '3', '6'};
-
+    int maxSize = 100;
     char data[100];
-    gets(data);
-    int size = sizeof(data) / sizeof(data[0]);
+    if (fgets(data, maxSize, stdin) == NULL) { 
+        fprintf(stderr, "Error reading input.\n");
+        return 1;
+    }
+
+    data[strcspn(data, "\n")] = '\0';
+
+    int size = strlen(data);
 
     // adjusts the values of the inputted array
     char* adjustedArray = adjustValues(data, &size);
