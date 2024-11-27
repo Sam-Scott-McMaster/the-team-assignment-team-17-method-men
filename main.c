@@ -4,10 +4,14 @@
 #include "evaluateWithParentheses.h"
 #include "bedmas.h"
 
+
+
 int main() {
     // set of data received from the GUI functions
     //char data[] = {'(', '9', '+', '8', ')', '*', '3', '6'};
-    char data[] = "(13-8)*4";
+
+    char data[100];
+    gets(data);
     int size = sizeof(data) / sizeof(data[0]);
 
     // adjusts the values of the inputted array
@@ -16,7 +20,7 @@ int main() {
     if (adjustedArray == NULL) {
         return -1; 
     }
-    printf("Adjusted array: %s\n", adjustedArray);
+    //printf("Adjusted array: %s\n", adjustedArray);
 
     // evaluates data to extract parentheses
     char* evaluatedArray = evaluateWithParentheses(adjustedArray, &size);
@@ -25,12 +29,14 @@ int main() {
         free(adjustedArray); // Free adjustedData before exiting
         return -1; // Exit if memory allocation failed
     }
-    printf("Expression after evaluating parentheses: %s\n", evaluatedArray);
+    //printf("Expression after evaluating parentheses: %s\n", evaluatedArray);
     
     double result = bedmasCalculation(evaluatedArray);   // calulcates final result
     printf("Final result: %.2f\n", result);
 
     free(adjustedArray);
-    free(evaluatedArray);
+    if (evaluatedArray != adjustedArray) {
+        free(evaluatedArray);
+    }
     return 0;
 }

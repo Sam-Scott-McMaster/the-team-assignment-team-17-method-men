@@ -1,0 +1,51 @@
+name: bedmas-calculations branch of Team 17 Group assignment
+
+on:
+  push:
+    branches: [ " bedmas-calculations" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build Makefile
+      run: make main
+    
+    - name: Add main to PATH
+      run: echo "$(pwd)" >> $GITHUB_PATH
+
+    - name: Upload Executables
+      uses: actions/upload-artifact@v4
+      with:
+        name: Executables
+        path: ./main
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run makefile
+      run: make cmain
+
+    - name: run test script
+      run: ./test_script.sh > test_results.txt
+
+    - name: gcov
+      run: gcov -o . cmain-main.gcda cmain-evaluateWithParentheses.gcda cmain-bedmas.gcda cmain-arithmeticOperations.gcda
+
+    - name: Upload Test Results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: Test Results
+        path: test_results.txt
+    
+    - name: Upload coverage reports
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage_reports
+        path: "*.gcov"
