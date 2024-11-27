@@ -7,10 +7,6 @@
 // adjusts the values of the inpuuted array, to merge multi-digit numbers
 char* adjustValues(char* data, int *size) {
     char* newArray = (char*)malloc(*size*sizeof(char));    // allocates memory for the adjusted array
-    if (newArray == NULL) {
-        printf("Memory allocation failed!\n");
-        return NULL;
-    }
     int newArrayIndex = 0;
 
     // iterates through each element in the given array
@@ -68,10 +64,6 @@ char* evaluateWithParentheses(char* data, int *dataSize) {
         int subExpressionLength = closedPosition - openPosition - 1;  // assigns value to represent size of the new array
         // allocates memory for the sub expression
         char* subExpression = (char*)malloc((subExpressionLength + 1) * sizeof(char));    // adds an extra element for string terminator
-        if (subExpression == NULL) {
-            printf("Memory allocation failed.\n");
-            return NULL;
-        }
 
         strncpy(subExpression, &data[openPosition + 1], subExpressionLength); // copies over all of the data within the parantheses to the sub expression
         subExpression[subExpressionLength] = '\0';    // assigns string terminator
@@ -86,11 +78,7 @@ char* evaluateWithParentheses(char* data, int *dataSize) {
         int newArraySize = *dataSize - (closedPosition - openPosition + 1) + resultLength; // adjusts new array size
         // allocates memory for array to hold the values inside the parantheses
         char* finalArray = (char*)malloc(newArraySize * sizeof(char));   
-        if (finalArray == NULL) {
-            printf("Memory allocation failed!\n");
-            return NULL;
-        }
-
+        
         // copies everything before the open paranthesis
         int newArrayIndex = 0;
         for (int i = 0; i < openPosition; i++) {

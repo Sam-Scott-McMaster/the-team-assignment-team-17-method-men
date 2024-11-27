@@ -51,10 +51,6 @@ double multiplication(double num1, double num2) {
  *      User cannot continue entering numbers until clear is received
 */
 double division(double num1, double num2) {
-    if (num2 == 0) {
-        fprintf(stderr, "ERROR DIV BY ZERO");
-        return 0;
-    }
     double numberQuotient = num1 / num2;
     return numberQuotient;
 }

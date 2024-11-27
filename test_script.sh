@@ -115,5 +115,8 @@ test './cmain' 0 "0" 'Final result: 0.00' ''
 # 10. negative result
 test './cmain' 0 "3-7" 'Final result: -4.00' ''
 
+
+
+
 # return code
 exit $fails

@@ -16,19 +16,11 @@ int main() {
 
     // adjusts the values of the inputted array
     char* adjustedArray = adjustValues(data, &size);
-    // checks if memory allocation failed
-    if (adjustedArray == NULL) {
-        return -1; 
-    }
+    
     //printf("Adjusted array: %s\n", adjustedArray);
 
     // evaluates data to extract parentheses
     char* evaluatedArray = evaluateWithParentheses(adjustedArray, &size);
-    // checks if memory allocation failed
-    if (evaluatedArray == NULL) {
-        free(adjustedArray); // Free adjustedData before exiting
-        return -1; // Exit if memory allocation failed
-    }
     //printf("Expression after evaluating parentheses: %s\n", evaluatedArray);
     
     double result = bedmasCalculation(evaluatedArray);   // calulcates final result
