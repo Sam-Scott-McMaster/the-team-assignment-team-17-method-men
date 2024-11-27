@@ -30,6 +30,9 @@ jobs:
     - name: Run makefile
       run: make cmain
 
+    - name: debug
+      run: ls
+
     - name: run test script
       run: ./test_script.sh > test_results.txt
 
