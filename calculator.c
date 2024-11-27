@@ -1,5 +1,7 @@
 #include <gtk/gtk.h>
 #include <glib/gstdio.h>
+#include "bedmas.h"
+#include "evaluateWithParentheses.h"
 
 /*
  * Global variables that will be used to store the input sequence from the calculator
@@ -70,6 +72,32 @@ static void on_equal_button_clicked(GtkButton *button, gpointer user_data)
   userInput = string_reallocate(userInput);
   g_printf("%s\n", userInput);
   g_printf("Size of string: %ld\n", strlen(userInput));
+
+  // =============== Pass input string to backend functions ===================
+  int size = strlen(userInput);
+  // adjusts the values of the inputted array
+  char* adjustedArray = adjustValues(userInput, &size);
+    
+  //printf("Adjusted array: %s\n", adjustedArray);
+
+  // evaluates data to extract parentheses
+  char* evaluatedArray = evaluateWithParentheses(adjustedArray, &size);
+  //printf("Expression after evaluating parentheses: %s\n", evaluatedArray);
+    
+  double result = bedmasCalculation(evaluatedArray);   // calulcates final result
+  
+  char *new_label_text = g_strdup_printf("Result: %.1f", result);
+  gtk_label_set_text(input_label, new_label_text); // Update the label
+  g_free(new_label_text); // Free memory for the temporary string
+ 
+  free(adjustedArray);
+  if (evaluatedArray != adjustedArray) {
+      free(evaluatedArray);
+  }
+   // ======================================
+
+  
+
   userInput = reset_userInput(userInput);
   g_print("\n");
 }
