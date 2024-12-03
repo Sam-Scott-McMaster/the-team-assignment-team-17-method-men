@@ -198,6 +198,17 @@ static void on_clear_button_clicked(GtkButton *button, gpointer user_data)
   g_free(new_label_text);
 }
 
+static void on_negative_button_clicked(GtkButton *button, gpointer user_data)
+{
+  g_print("The negative button was pushed!\n");
+
+  store_input_value('~');
+
+  /// Label Code
+  char *new_label_text = g_strdup_printf("%s", userInput);
+  gtk_label_set_text(input_label, new_label_text);
+  g_free(new_label_text);
+}
 /* Callback for the "Help" button.
  * Displays information about how to use the calculator in the terminal.
  */
@@ -212,6 +223,7 @@ static void on_help_button_clicked(GtkButton *button, gpointer user_data)
   g_print("      -   Subtraction (e.g., 8 - 2)\n");
   g_print("      *   Multiplication (e.g., 4 * 7)\n");
   g_print("      /   Division (e.g., 9 / 3)\n");
+  g_print("      ~   Negativity Toggle (e.g., press ~ to toggle 5 to -5)\n");
   g_print("      ( ) Parentheses for grouping expressions (note: parentheses cannot be nested).\n\n");
   g_print("How to Use:\n");
   g_print("  1. Enter numbers using the digit buttons (0-9).\n");
@@ -273,6 +285,9 @@ static void activate(GtkApplication *app, gpointer user_data)
 
   GObject *multiplication_button = gtk_builder_get_object(builder, "button_multiply");
   g_signal_connect(multiplication_button, "clicked", G_CALLBACK(on_multiply_button_clicked), NULL);
+
+  GObject *negative_button = gtk_builder_get_object(builder, "button_negative");
+  g_signal_connect(negative_button, "clicked", G_CALLBACK(on_negative_button_clicked), NULL);
 
   GObject *clear_button = gtk_builder_get_object(builder, "button_clear");
   g_signal_connect(clear_button, "clicked", G_CALLBACK(on_clear_button_clicked), NULL);

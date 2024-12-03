@@ -50,12 +50,20 @@
           </object>
         </child>
         <child>
-          <object id="button_clear" class="GtkButton">
-            <property name="label">Clear</property>
+          <object id="button_negative" class="GtkButton">
+            <property name="label">~</property>
             <layout>
               <property name="column">3</property>
               <property name="row">1</property>
-              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="button_clear" class="GtkButton">
+            <property name="label">Clear</property>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">1</property>
             </layout>
           </object>
         </child>
