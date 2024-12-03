@@ -49,7 +49,7 @@ static void on_digit_click(GtkButton *button, gpointer user_data)
   /// Label Code
   char *new_label_text = g_strdup_printf("%s", userInput);
   gtk_label_set_text(input_label, new_label_text); // Update the label
-  g_free(new_label_text); // Free memory for the temporary string
+  g_free(new_label_text);                          // Free memory for the temporary string
 
   g_print("The current input index location is: %d\n", currentIndex);
   g_print("Button %d was pressed!\n", digit);
@@ -76,30 +76,52 @@ static void on_equal_button_clicked(GtkButton *button, gpointer user_data)
   // =============== Pass input string to backend functions ===================
   int size = strlen(userInput);
   // adjusts the values of the inputted array
-  char* adjustedArray = adjustValues(userInput, &size);
+  char *adjustedArray = adjustValues(userInput, &size);
 
   // evaluates data to extract parentheses
-  char* evaluatedArray = evaluateWithParentheses(adjustedArray, &size);
-  //printf("Expression after evaluating parentheses: %s\n", evaluatedArray);
-    
-  double result = bedmasCalculation(evaluatedArray);   // calulcates final result
-  
+  char *evaluatedArray = evaluateWithParentheses(adjustedArray, &size);
+  // printf("Expression after evaluating parentheses: %s\n", evaluatedArray);
+
+  double result = bedmasCalculation(evaluatedArray); // calulcates final result
+
   // Displays the calculated result to the screen of the calculator
   char *new_label_text = g_strdup_printf("%.3f", result);
   gtk_label_set_text(input_label, new_label_text); // Update the label
-  g_free(new_label_text); // Free memory for the temporary string
- 
+  g_free(new_label_text);                          // Free memory for the temporary string
+
   free(adjustedArray);
-  if (evaluatedArray != adjustedArray) {
-      free(evaluatedArray);
+  if (evaluatedArray != adjustedArray)
+  {
+    free(evaluatedArray);
   }
-   // ======================================
+  // ======================================
 
   userInput = reset_userInput(userInput); // Clear userInput string
-  sprintf(userInput, "%f", result); // Set userInput string to the result of the previous operations
-  currentIndex = strlen(userInput); // Set the new string index to the end of the result
+  sprintf(userInput, "%f", result);       // Set userInput string to the result of the previous operations
+  currentIndex = strlen(userInput);       // Set the new string index to the end of the result
   g_print("\n");
+}
 
+static void on_open_parenthesis_button_clicked(GtkButton *button, gpointer user_data)
+{
+  g_print("The '(' button was pushed!\n");
+
+  store_input_value('(');
+
+  char *new_label_text = g_strdup_printf("%s", userInput);
+  gtk_label_set_text(input_label, new_label_text);
+  g_free(new_label_text);
+}
+
+static void on_close_parenthesis_button_clicked(GtkButton *button, gpointer user_data)
+{
+  g_print("The ')' button was pushed!\n");
+
+  store_input_value(')');
+
+  char *new_label_text = g_strdup_printf("%s", userInput);
+  gtk_label_set_text(input_label, new_label_text);
+  g_free(new_label_text);
 }
 
 static void on_add_button_clicked(GtkButton *button, gpointer user_data)
@@ -119,7 +141,7 @@ static void on_subtract_button_clicked(GtkButton *button, gpointer user_data)
   g_print("The subtract button was pushed!\n");
 
   store_input_value('-');
-  
+
   /// Label Code
   char *new_label_text = g_strdup_printf("%s", userInput);
   gtk_label_set_text(input_label, new_label_text);
@@ -131,7 +153,7 @@ static void on_divide_button_clicked(GtkButton *button, gpointer user_data)
   g_print("The divide button was pushed!\n");
 
   store_input_value('/');
-  
+
   /// Label Code
   char *new_label_text = g_strdup_printf("%s", userInput);
   gtk_label_set_text(input_label, new_label_text);
@@ -143,7 +165,7 @@ static void on_multiply_button_clicked(GtkButton *button, gpointer user_data)
   g_print("The multiply button was pushed!\n");
 
   store_input_value('*');
-  
+
   /// Label Code
   char *new_label_text = g_strdup_printf("%s", userInput);
   gtk_label_set_text(input_label, new_label_text);
@@ -155,7 +177,7 @@ static void on_clear_button_clicked(GtkButton *button, gpointer user_data)
   g_print("The clear button was pushed!\n");
 
   userInput = reset_userInput(userInput);
-  
+
   /// Label Code
   char *new_label_text = g_strdup_printf("%s", userInput);
   gtk_label_set_text(input_label, new_label_text);
@@ -217,6 +239,12 @@ static void activate(GtkApplication *app, gpointer user_data)
 
   GObject *clear_button = gtk_builder_get_object(builder, "button_clear");
   g_signal_connect(clear_button, "clicked", G_CALLBACK(on_clear_button_clicked), NULL);
+
+  GObject *open_parenthesis_button = gtk_builder_get_object(builder, "button_parentheses_open");
+  g_signal_connect(open_parenthesis_button, "clicked", G_CALLBACK(on_open_parenthesis_button_clicked), NULL);
+
+  GObject *close_parenthesis_button = gtk_builder_get_object(builder, "button_parentheses_close");
+  g_signal_connect(close_parenthesis_button, "clicked", G_CALLBACK(on_close_parenthesis_button_clicked), NULL);
 
   gtk_widget_set_visible(GTK_WIDGET(window), TRUE);
 
