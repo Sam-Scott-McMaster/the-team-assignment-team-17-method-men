@@ -204,7 +204,7 @@ static void on_clear_button_clicked(GtkButton *button, gpointer user_data)
 static void on_help_button_clicked(GtkButton *button, gpointer user_data)
 {
   g_print("Calculator Application Help\n\n");
-  g_print("This graphical calculator application allows you to perform basic arithmetic operations with ease.\n");
+  g_print("This calculator application allows you to perform basic arithmetic operations.\n");
   g_print("Use the Help button in the application for quick guidance.\n\n");
   g_print("Features:\n");
   g_print("  - Supported Operations:\n");
@@ -229,7 +229,6 @@ static void on_help_button_clicked(GtkButton *button, gpointer user_data)
   g_print("  - Decimal numbers are supported (e.g., 3.14, 0.5).\n");
   g_print("  - Invalid inputs or unsupported formats will display an error.\n");
   g_print("  - The application does not support nested parentheses or advanced operations like exponentiation.\n\n");
-  g_print("For more information, press the \"Help\" button on the calculator interface.\n");
 }
 
 static void activate(GtkApplication *app, gpointer user_data)
