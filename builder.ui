@@ -10,8 +10,10 @@
         <child>
           <object id="input_label" class="GtkLabel">
             <property name="label"></property>
-            <property name="halign">start</property>
+            <property name="halign">fill</property>
+            <property name="hexpand">true</property>
             <property name="valign">center</property>
+            <property name="css-classes">calculator-screen</property>
             <layout>
               <property name="column">0</property>
               <property name="row">0</property>

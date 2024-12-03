@@ -1,0 +1,25 @@
+.calculator-screen {
+    font-family: "Courier New", Courier, monospace;
+    /* Using built-in monospace fonts */
+    font-size: 28px;
+
+    background-color: #FFFFFF;
+
+    color: #000080;
+
+    padding: 10px; /* Spacing around the text */
+    
+    border: 2px solid #FFFFFF;
+
+    /*border-radius: 5px; Rounded edges for aesthetics */
+    
+    text-align: right;
+    /* Align text to the right */
+    letter-spacing: 3px;
+    /* Space between characters for a segmented look */
+    /*text-shadow:
+    *    0 0 3px #00FF00,
+    *    0 0 5px #00FF00,
+    *    0 0 8px #00FF00; 
+    */
+}

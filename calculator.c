@@ -41,6 +41,20 @@ char *reset_userInput(char *inputString)
   return resetString;
 }
 
+static void load_css()
+{
+    GtkCssProvider *provider = gtk_css_provider_new();
+    GdkDisplay *display = gdk_display_get_default();
+
+    // Load the CSS file
+    gtk_css_provider_load_from_path(provider, "styles.css");
+
+    // Apply the CSS provider globally to the display
+    gtk_style_context_add_provider_for_display(display, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+    g_object_unref(provider);
+}
+
 static void on_digit_click(GtkButton *button, gpointer user_data)
 {
   int digit = GPOINTER_TO_INT(user_data); // Retrieve digit input from pointer
@@ -227,6 +241,8 @@ static void activate(GtkApplication *app, gpointer user_data)
   /* Connect signal handlers to the constructed widgets. */
   GObject *window = gtk_builder_get_object(builder, "window");
   gtk_window_set_application(GTK_WINDOW(window), app);
+
+  load_css();
 
   input_label = GTK_LABEL(gtk_builder_get_object(builder, "input_label"));
 
