@@ -134,7 +134,7 @@ test './cmain' 0 "(12/(3+(5-2)))+((6*2)-(4/2))" 'Final result: 12.00' ''
 test './cmain' 0 "((8*(3+2))/(10-(4/2)))+(6/(2+(8/4)))" 'Final result: 6.50' ''
 
 # 16. super complex calculation II
-test './cmain' 0 "((15/(3+(7-5)))*(6+(9/3)))-((8*2)/(4+2))" 'Final result: 24.00' ''
+test './cmain' 0 "((15/(3+(7-5)))*(6+(9/3)))-((8*2)/(4+2))" 'Final result: 24.33' ''
 
 # return code
 exit $fails
