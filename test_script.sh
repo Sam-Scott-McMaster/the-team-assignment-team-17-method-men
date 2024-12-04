@@ -115,13 +115,13 @@ test './cmain' 0 "0" 'Final result: 0.00' ''
 # 10. negative result
 test './cmain' 0 "3-7" 'Final result: -4.00' ''
 
-# 11. more complex parentheses
+# 11. more complex parentheses I
 test './cmain' 0 "((2+3)*(4-1))+(5*(6/2))" 'Final result: 30.00' ''
 
-# 12. more complex parentheses
+# 12. more complex parentheses II
 test './cmain' 0 "((8-3)/(2+1))*(7-(3+2))" 'Final result: 3.34' ''
 
-# 13. more complex parentheses
+# 13. more complex parentheses III
 test './cmain' 0 "(12/(3+(5-2)))+((6*2)-(4/2))" 'Final result: 12.00' ''
 
 # 14. negative number input
@@ -129,6 +129,12 @@ test './cmain' 0 "(12/(3+(5-2)))+((6*2)-(4/2))" 'Final result: 12.00' ''
 
 # 15. negative number input
 # test './cmain' 0 "(-3+5)*(4-2)" 'Final result: 4' ''
+
+# 16. super complex calculation
+test './cmain' 0 "((8*(3+2))/(10-(4/2)))+(6/(2+(8/4)))" 'Final result: 6.50' ''
+
+# 16. super complex calculation II
+test './cmain' 0 "((15/(3+(7-5)))*(6+(9/3)))-((8*2)/(4+2))" 'Final result: 24.00' ''
 
 # return code
 exit $fails
