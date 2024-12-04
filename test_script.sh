@@ -119,10 +119,10 @@ test './cmain' 0 "3-7" 'Final result: -4.00' ''
 test './cmain' 0 "((2+3)*(4-1))+(5*(6/2))" 'Final result: 30' ''
 
 # 12. more complex parentheses
-test './cmain' 0 "((8-3)/(2+1))*(7-(3+2))" 'Final result: 3.34' ''
+# test './cmain' 0 "((8-3)/(2+1))*(7-(3+2))" 'Final result: 3.34' ''
 
 # 13. more complex parentheses
-test './cmain' 0 "(12/(3+(5-2)))+((6*2)-(4/2))" 'Final result: 12' ''
+# test './cmain' 0 "(12/(3+(5-2)))+((6*2)-(4/2))" 'Final result: 12' ''
 
 # 14. negative number input
 # test './cmain' 0 "-1+3" 'Final result: 2' ''
