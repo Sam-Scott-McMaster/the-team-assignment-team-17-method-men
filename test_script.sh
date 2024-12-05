@@ -136,5 +136,20 @@ test './cmain' 0 "((8*(3+2))/(10-(4/2)))+(6/(2+(8/4)))" 'Final result: 6.50' ''
 # 17. super complex calculation II
 test './cmain' 0 "((15/(3+(7-5)))*(6+(9/3)))-((8*2)/(4+2))" 'Final result: 24.33' ''
 
+# 18. additional negative calculations
+test './cmain' 0 "%2*3" 'Final result: -6.00' ''
+
+# 19. additional negative calculations II
+test './cmain' 0 "(2+1)*(%3-1)" 'Final result: -8.00' ''
+
+# 20. additional negative calculations III
+test './cmain' 0 "%4-(%3+7)" 'Final result: -8.00' ''
+
+# 20. additional negative calculations III
+test './cmain' 0 "%4/(%3+7)" 'Final result: -1.00' ''
+
+# 21. complex negative calculations
+test './cmain' 0 "((15/(3+(7-5)))*(6+(9/-3)))-((8*2)/(-4+2))" 'Final result: -17.00' ''
+
 # return code
 exit $fails
