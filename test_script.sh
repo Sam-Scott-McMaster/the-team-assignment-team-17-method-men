@@ -125,10 +125,10 @@ test './cmain' 0 "((8-3)/(2+1))*(7-(3+2))" 'Final result: 3.34' ''
 test './cmain' 0 "(12/(3+(5-2)))+((6*2)-(4/2))" 'Final result: 12.00' ''
 
 # 14. negative number input
-test './cmain' 0 "~1+3" 'Final result: 2.00' ''
+test './cmain' 0 "%1+3" 'Final result: 2.00' ''
 
 # 15. negative number input
-test './cmain' 0 "(~3+5)*(4-2)" 'Final result: 4.00' ''
+test './cmain' 0 "(%3+5)*(4-2)" 'Final result: 4.00' ''
 
 # 16. super complex calculation
 test './cmain' 0 "((8*(3+2))/(10-(4/2)))+(6/(2+(8/4)))" 'Final result: 6.50' ''

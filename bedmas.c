@@ -13,14 +13,22 @@
  *  Identify the numbers from a string as digits
  *  Return Value and Output: double number --> represented the string that was converted a number
  */
-double createNumbers(const char** expression) {
+double createNumbers(const char** expression, int* isNegative) {
     char* endPtr;
+
     // learned about strtod from https://www.ibm.com/docs/ja/rdfi/9.6.0?topic=functions-strftime-convert-datetime-string
     //using to convert from string to a double
     double number = strtod(*expression, &endPtr);
+
+    //update expression pointer
     *expression = endPtr;
+    //if the number should be negative, return as negative
+    if(*isNegative == 1){
+        number = number*(-1);
+    }
     return number;
 }
+
 
 
 /* Function Name: seperateExpression
@@ -39,18 +47,31 @@ void separateExpression(const char* expression, double* numbers, char* operators
     *numberCount = 0;
     *operatorCount = 0;
     const char* ptr = expression;
+    int isNegative=0;
     
     while (*ptr) {
         //if pointing to a digit, combine all sequential digits to form a number, store this in the numbers array 
         if (isdigit(*ptr)) {
-            numbers[(*numberCount)++] = createNumbers(&ptr);
+            numbers[(*numberCount)++] = createNumbers(&ptr, &isNegative);
+            isNegative = 0;
         }
         //if pointing to a operator, add the operator to the operators list
         else if (strchr("+-*/", *ptr)) {
             operators[(*operatorCount)++] = *ptr++;
+            isNegative=0;
+        }
+        //check if a negative symbol is used, denoted by the percent operator
+        else if (strchr("%", *ptr)) {
+            ptr++;
+            isNegative=1;
+        }
+        //invalid character so index past
+        else{
+            ptr++;
         }
     }
 }
+
 
 /* Function Name: multiDiv
  * 
@@ -108,12 +129,12 @@ double addSub(double* numbers, char* operators, int operatorCount) {
     //iterate through operators list
     for (int operator = 0; operator < operatorCount; operator++) {
         //if operator is +, add the result with the next number in the array
-        if (operators[operator] == '+') {
-            result = addition(result, numbers[operator + 1]);
-        //if operator is -, subtract the result with the next number in the array
-        } else if (operators[operator] == '-') {
-            result = subtraction(result, numbers[operator + 1]);
-        }
+    if (operators[operator] == '+') {
+        result = addition(result, numbers[operator + 1]);
+    } else if (operators[operator] == '-') {
+        result = subtraction(result, numbers[operator + 1]);
+    }
+
     }
     return result;
 }
