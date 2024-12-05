@@ -43,16 +43,16 @@ char *reset_userInput(char *inputString)
 
 static void load_css()
 {
-    GtkCssProvider *provider = gtk_css_provider_new();
-    GdkDisplay *display = gdk_display_get_default();
+  GtkCssProvider *provider = gtk_css_provider_new();
+  GdkDisplay *display = gdk_display_get_default();
 
-    // Load the CSS file
-    gtk_css_provider_load_from_path(provider, "styles.css");
+  // Load the CSS file
+  gtk_css_provider_load_from_path(provider, "styles.css");
 
-    // Apply the CSS provider globally to the display
-    gtk_style_context_add_provider_for_display(display, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+  // Apply the CSS provider globally to the display
+  gtk_style_context_add_provider_for_display(display, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
 
-    g_object_unref(provider);
+  g_object_unref(provider);
 }
 
 static void on_digit_click(GtkButton *button, gpointer user_data)
@@ -154,7 +154,7 @@ static void on_subtract_button_clicked(GtkButton *button, gpointer user_data)
 {
   g_print("The subtract button was pushed!\n");
 
-  store_input_value('-');
+  store_input_value('%');
 
   /// Label Code
   char *new_label_text = g_strdup_printf("%s", userInput);
@@ -202,7 +202,7 @@ static void on_negative_button_clicked(GtkButton *button, gpointer user_data)
 {
   g_print("The negative button was pushed!\n");
 
-  store_input_value('~');
+  store_input_value('-');
 
   /// Label Code
   char *new_label_text = g_strdup_printf("%s", userInput);
@@ -223,7 +223,7 @@ static void on_help_button_clicked(GtkButton *button, gpointer user_data)
   g_print("      -   Subtraction (e.g., 8 - 2)\n");
   g_print("      *   Multiplication (e.g., 4 * 7)\n");
   g_print("      /   Division (e.g., 9 / 3)\n");
-  g_print("      ~   Negativity Toggle (e.g., press ~ to toggle 5 to -5)\n");
+  g_print("      +/- Negativity Toggle (e.g., press +/- to toggle 5 to -5)\n");
   g_print("      ( ) Parentheses for grouping expressions (note: parentheses cannot be nested).\n\n");
   g_print("How to Use:\n");
   g_print("  1. Enter numbers using the digit buttons (0-9).\n");
