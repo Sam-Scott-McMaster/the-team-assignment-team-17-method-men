@@ -66,10 +66,6 @@ void separateExpression(const char* expression, double* numbers, char* operators
             ptr++;
             isNegative=1;
         }
-        //invalid character so index past
-        else{
-            ptr++;
-        }
     }
 }
 
