@@ -25,6 +25,7 @@ double createNumbers(const char** expression, int* isNegative) {
     //if the number should be negative, return as negative
     if(*isNegative == 1){
         number = number*(-1);
+        isNegative = 0;
     }
     return number;
 }
@@ -56,12 +57,12 @@ void separateExpression(const char* expression, double* numbers, char* operators
             isNegative = 0;
         }
         //if pointing to a operator, add the operator to the operators list
-        else if (strchr("+-*/", *ptr)) {
+        else if (strchr("+%*/", *ptr)) {
             operators[(*operatorCount)++] = *ptr++;
             isNegative=0;
         }
         //check if a negative symbol is used, denoted by the percent operator
-        else if (strchr("%", *ptr)) {
+        else if (strchr("-", *ptr)) {
             ptr++;
             isNegative=1;
         }
@@ -131,7 +132,7 @@ double addSub(double* numbers, char* operators, int operatorCount) {
         //if operator is +, add the result with the next number in the array
     if (operators[operator] == '+') {
         result = addition(result, numbers[operator + 1]);
-    } else if (operators[operator] == '-') {
+    } else if (operators[operator] == '%') {
         result = subtraction(result, numbers[operator + 1]);
     }
 

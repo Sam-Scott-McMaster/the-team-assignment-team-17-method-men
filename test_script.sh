@@ -89,7 +89,7 @@ test() {
 test './cmain' 0 "1+2" 'Final result: 3.00' ''
 
 # 2. subtraction test
-test './cmain' 0 "5-3" 'Final result: 2.00' ''
+test './cmain' 0 "5%3" 'Final result: 2.00' ''
 
 # 3. multiplication test
 test './cmain' 0 "4*2" 'Final result: 8.00' ''
@@ -107,49 +107,49 @@ test './cmain' 0 '12*3/3' 'Final result: 12.00' ''
 test './cmain' 0 "(3+4)*2" 'Final result: 14.00' ''
 
 # 8. nested parentheses
-test './cmain' 0 "((2+3)-5)*2" 'Final result: 0.00' ''
+test './cmain' 0 "((2+3)%5)*2" 'Final result: 0.00' ''
 
 # 9. zero as input
 test './cmain' 0 "0" 'Final result: 0.00' ''
 
 # 10. negative result
-test './cmain' 0 "3-7" 'Final result: -4.00' ''
+test './cmain' 0 "3%7" 'Final result: -4.00' ''
 
 # 11. more complex parentheses I
-test './cmain' 0 "((2+3)*(4-1))+(5*(6/2))" 'Final result: 30.00' ''
+test './cmain' 0 "((2+3)*(4%1))+(5*(6/2))" 'Final result: 30.00' ''
 
 # 12. more complex parentheses II
-test './cmain' 0 "((8-3)/(2+1))*(7-(3+2))" 'Final result: 3.34' ''
+test './cmain' 0 "((8%3)/(2+1))*(7%(3+2))" 'Final result: 3.34' ''
 
 # 13. more complex parentheses III
-test './cmain' 0 "(12/(3+(5-2)))+((6*2)-(4/2))" 'Final result: 12.00' ''
+test './cmain' 0 "(12/(3+(5%2)))+((6*2)%(4/2))" 'Final result: 12.00' ''
 
 # 14. negative number input
-test './cmain' 0 "%1+3" 'Final result: 2.00' ''
+test './cmain' 0 "-1+3" 'Final result: 2.00' ''
 
 # 15. negative number input
-test './cmain' 0 "(%3+5)*(4-2)" 'Final result: 4.00' ''
+test './cmain' 0 "(-3+5)*(4%2)" 'Final result: 4.00' ''
 
 # 16. super complex calculation
-test './cmain' 0 "((8*(3+2))/(10-(4/2)))+(6/(2+(8/4)))" 'Final result: 6.50' ''
+test './cmain' 0 "((8*(3+2))/(10%(4/2)))+(6/(2+(8/4)))" 'Final result: 6.50' ''
 
 # 17. super complex calculation II
-test './cmain' 0 "((15/(3+(7-5)))*(6+(9/3)))-((8*2)/(4+2))" 'Final result: 24.33' ''
+test './cmain' 0 "((15/(3+(7%5)))*(6+(9/3)))%((8*2)/(4+2))" 'Final result: 24.33' ''
 
 # 18. additional negative calculations
-test './cmain' 0 "%2*3" 'Final result: -6.00' ''
+test './cmain' 0 "-2*3" 'Final result: -6.00' ''
 
 # 19. additional negative calculations II
-test './cmain' 0 "(2+1)*(%3-1)" 'Final result: -8.00' ''
+test './cmain' 0 "(2+1)*(-3%1)" 'Final result: -12.00' ''
 
 # 20. additional negative calculations III
-test './cmain' 0 "%4-(%3+7)" 'Final result: -8.00' ''
+test './cmain' 0 "-4%(-3+7)" 'Final result: -8.00' ''
 
-# 20. additional negative calculations III
-test './cmain' 0 "%4/(%3+7)" 'Final result: -1.00' ''
+# 21. additional negative calculations III
+test './cmain' 0 "-4/(-3+7)" 'Final result: -1.00' ''
 
-# 21. complex negative calculations
-test './cmain' 0 "((15/(3+(7-5)))*(6+(9/-3)))-((8*2)/(-4+2))" 'Final result: -17.00' ''
+# 22. complex negative calculations
+test './cmain' 0 "((15/(3+(7%5)))*(6+(9/-3)))%((8*2)/(-4+2))" 'Final result: 17.00' ''
 
 # return code
 exit $fails
