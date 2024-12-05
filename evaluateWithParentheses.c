@@ -29,15 +29,28 @@ char* adjustValues(char* data, int *size) {
 
     // iterates through each element in the given array
     for (int i = 0; i < *size; i++) {
-        // checks if the char index is a number, and not an operation
-        if (data[i] >= '0') {
+        // checks if the current character is a digit or part of a negative number
+        if (data[i] >= '0' || (data[i] == '~' && *size > i + 1 && data[i+1] >= '0')) {
             int result = 0; // resets the result variable for each integer found
+            int negativeResult = 0;
+
+            // increments negativeResult counter to indicate that a negative sign is present
+            if (data[i] == '~') {
+                negativeResult = 1;
+                i++;    // increments the iterations number to move past the minus sign
+            }
 
             // loops while indeces are valid integers
             while (i < *size && data[i] >= '0') {
                 result = result * 10 + (data[i] - '0'); // logic to transform consecutive digits to its proper number
                 i++;    // moves index over after each number iteration
             }
+
+            // if a negative sign was present, apply the sign
+            if (negativeResult > 0) {
+                result = -result;
+            }
+
             sprintf(&newArray[newArrayIndex], "%d", result);   // stores the number in the updated array as chars
             newArrayIndex += sprintf(&newArray[newArrayIndex], "%d", result);   // updates the index aftering adding the value
             i--;    // decrements i since while loop adds extra increment

@@ -19,10 +19,6 @@ double createNumbers(const char** expression) {
     //using to convert from string to a double
     double number = strtod(*expression, &endPtr);
     *expression = endPtr;
-    if (**expression == '~') {
-          // Skip the tilde
-        return number-780;  // Replace tilde with 0
-    }
     return number;
 }
 
