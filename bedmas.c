@@ -5,16 +5,40 @@
 #include "arithmeticOperations.h"
 #include "bedmas.h"
 
-//identify numbers from a string on digits
+/* Function Name: createNumbers
+ * 
+ * Parameters:
+ * const char** expression --> double pointer to an expression
+ * Function Description:
+ *  Identify the numbers from a string as digits
+ *  Return Value and Output: double number --> represented the string that was converted a number
+ */
 double createNumbers(const char** expression) {
     char* endPtr;
     // learned about strtod from https://www.ibm.com/docs/ja/rdfi/9.6.0?topic=functions-strftime-convert-datetime-string
     //using to convert from string to a double
     double number = strtod(*expression, &endPtr);
     *expression = endPtr;
+    if (**expression == '~') {
+          // Skip the tilde
+        return number-780;  // Replace tilde with 0
+    }
     return number;
 }
 
+
+/* Function Name: seperateExpression
+ * 
+ * Parameters:
+ * const char* expression --> pointer to an expression
+ *  double* numbers --> pointer to an array of numbers representing the operands of the expressions
+ *  char* operators --> pointer to an array of operators in the expression
+ *  int* numberCount --> pointer to an integer keeping count of the number of numbers in the expression
+ *  int* operatorCount --> pointer to an integer keeping count of the number of operators in the expression
+ * Function Description:
+ *  divides the expression into operands and operators, both of these are storage as arrays.
+ *  Return Value and Output: None, all variables are altered as pointer parameters
+ */
 void separateExpression(const char* expression, double* numbers, char* operators, int* numberCount, int* operatorCount) {
     *numberCount = 0;
     *operatorCount = 0;
@@ -32,6 +56,18 @@ void separateExpression(const char* expression, double* numbers, char* operators
     }
 }
 
+/* Function Name: multiDiv
+ * 
+ * Parameters:
+ *  double* numbers --> pointer to an array of numbers representing the operands of the expressions
+ *  char* operators --> pointer to an array of operators in the expression
+ *  int* numberCount --> pointer to an integer keeping count of the number of numbers in the expression
+ *  int* operatorCount --> pointer to an integer keeping count of the number of operators in the expression
+ * Function Description:
+ *  The multiDiv function is responsible for the performing the multiplication and division in the expression
+ *  This happens before addition and subtraction as per bedmas
+ *  Return Value and Output: None, all variables are altered as pointer parameters
+ */
 void multiDiv(double* numbers, char* operators, int* numberCount, int* operatorCount) {
     for (int operator = 0; operator <*operatorCount; operator++) {
         //multiplication check
@@ -60,6 +96,17 @@ void multiDiv(double* numbers, char* operators, int* numberCount, int* operatorC
     }
 }
 
+/* Function Name: addSub
+ * 
+ * Parameters:
+ *  double* numbers --> pointer to an array of numbers representing the operands of the expressions
+ *  char* operators --> pointer to an array of operators in the expression
+ *  int* operatorCount --> pointer to an integer keeping count of the number of operators in the expression
+ * Function Description:
+ *  The addSub function is responsible for the adding and subtracting of the bedmas expression.
+ *  Happens after multiDiv because of the order of bedmas.
+ *  Return Value and Output: double result --> final value of the expression
+ */
 double addSub(double* numbers, char* operators, int operatorCount) {
     double result = numbers[0];
     //iterate through operators list
@@ -74,7 +121,16 @@ double addSub(double* numbers, char* operators, int operatorCount) {
     }
     return result;
 }
-
+/* Function Name: bedmasCalculation
+ * 
+ * Parameters:
+ *  char* expression --> pointer to an expression
+ * Function Description:
+ *  Similar to a main method which will call all the above methods to evaluate an expression
+ *  Will separate the expression, then call multiDiv to apply multiplication and division operators
+ *  lastly addSub will be called which will apply the addition and subtraction operators returning a final result
+ *  Return Value and Output: double result --> final value of the expression
+ */
 double bedmasCalculation(char* expression) {
     //create storage for our number list and operator lists
     double numbers[99];
