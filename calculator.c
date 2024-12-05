@@ -7,9 +7,11 @@
  * Global variables that will be used to store the input sequence from the calculator
  * userInput is initialized within the main() function
  */
-char *userInput;
+char *userInput; // Stores the string to be passed to the backend functions
+char *displayString; // Stores the string to display on the calculator
 GtkLabel *input_label;
-int currentIndex = 0;
+int currentIndex = 0; // Tracks the index for userInput
+int displayIndex = 0;
 
 // Returns a string pointer to an allocated block of memory 100 bytes long
 char *string_memory_allocate()
@@ -31,13 +33,20 @@ static void store_input_value(char value_to_store)
   currentIndex++;
 }
 
+static void store_display_value(char value_to_store)
+{
+  displayString[displayIndex] = value_to_store;
+  displayIndex++;
+}
+
 // Allocates a new string pointer using string_memory_allocate(), frees old pointer
 char *reset_userInput(char *inputString)
 {
   char *resetString = string_memory_allocate();
   free(inputString);
 
-  currentIndex = 0; // Resets index back to 0
+  currentIndex = 0; // Resets input string (used for backend) index back to 0
+  displayIndex = 0; // Resets display string
   return resetString;
 }
 
@@ -61,7 +70,8 @@ static void on_digit_click(GtkButton *button, gpointer user_data)
   store_input_value(digit + '0');         // Store digit in input string
 
   /// Label Code
-  char *new_label_text = g_strdup_printf("%s", userInput);
+  store_display_value(digit + '0');
+  char *new_label_text = g_strdup_printf("%s", displayString);
   gtk_label_set_text(input_label, new_label_text); // Update the label
   g_free(new_label_text);                          // Free memory for the temporary string
 
@@ -111,8 +121,11 @@ static void on_equal_button_clicked(GtkButton *button, gpointer user_data)
   // ======================================
 
   userInput = reset_userInput(userInput); // Clear userInput string
+  displayString = reset_userInput(displayString); // Clear display string
   sprintf(userInput, "%f", result);       // Set userInput string to the result of the previous operations
+  sprintf(displayString, "%f", result); // Set displayString to the string result of the previous operations
   currentIndex = strlen(userInput);       // Set the new string index to the end of the result
+  displayIndex = strlen(displayString);
   g_print("\n");
 }
 
@@ -122,7 +135,8 @@ static void on_open_parenthesis_button_clicked(GtkButton *button, gpointer user_
 
   store_input_value('(');
 
-  char *new_label_text = g_strdup_printf("%s", userInput);
+  store_display_value('(');
+  char *new_label_text = g_strdup_printf("%s", displayString);
   gtk_label_set_text(input_label, new_label_text);
   g_free(new_label_text);
 }
@@ -133,7 +147,8 @@ static void on_close_parenthesis_button_clicked(GtkButton *button, gpointer user
 
   store_input_value(')');
 
-  char *new_label_text = g_strdup_printf("%s", userInput);
+  store_display_value(')');
+  char *new_label_text = g_strdup_printf("%s", displayString);
   gtk_label_set_text(input_label, new_label_text);
   g_free(new_label_text);
 }
@@ -145,7 +160,8 @@ static void on_add_button_clicked(GtkButton *button, gpointer user_data)
   store_input_value('+');
 
   /// Label Code
-  char *new_label_text = g_strdup_printf("%s", userInput);
+  store_display_value('+');
+  char *new_label_text = g_strdup_printf("%s", displayString);
   gtk_label_set_text(input_label, new_label_text);
   g_free(new_label_text);
 }
@@ -157,7 +173,8 @@ static void on_subtract_button_clicked(GtkButton *button, gpointer user_data)
   store_input_value('%');
 
   /// Label Code
-  char *new_label_text = g_strdup_printf("%s", userInput);
+  store_display_value('-');
+  char *new_label_text = g_strdup_printf("%s", displayString);
   gtk_label_set_text(input_label, new_label_text);
   g_free(new_label_text);
 }
@@ -169,7 +186,8 @@ static void on_divide_button_clicked(GtkButton *button, gpointer user_data)
   store_input_value('/');
 
   /// Label Code
-  char *new_label_text = g_strdup_printf("%s", userInput);
+  store_display_value('/');
+  char *new_label_text = g_strdup_printf("%s", displayString);
   gtk_label_set_text(input_label, new_label_text);
   g_free(new_label_text);
 }
@@ -181,7 +199,8 @@ static void on_multiply_button_clicked(GtkButton *button, gpointer user_data)
   store_input_value('*');
 
   /// Label Code
-  char *new_label_text = g_strdup_printf("%s", userInput);
+  store_display_value('*');
+  char *new_label_text = g_strdup_printf("%s", displayString);
   gtk_label_set_text(input_label, new_label_text);
   g_free(new_label_text);
 }
@@ -191,9 +210,10 @@ static void on_clear_button_clicked(GtkButton *button, gpointer user_data)
   g_print("The clear button was pushed!\n");
 
   userInput = reset_userInput(userInput);
+  displayString = reset_userInput(displayString);
 
   /// Label Code
-  char *new_label_text = g_strdup_printf("%s", userInput);
+  char *new_label_text = g_strdup_printf("%s", displayString);
   gtk_label_set_text(input_label, new_label_text);
   g_free(new_label_text);
 }
@@ -205,7 +225,8 @@ static void on_negative_button_clicked(GtkButton *button, gpointer user_data)
   store_input_value('-');
 
   /// Label Code
-  char *new_label_text = g_strdup_printf("%s", userInput);
+  store_display_value('-');
+  char *new_label_text = g_strdup_printf("%s", displayString);
   gtk_label_set_text(input_label, new_label_text);
   g_free(new_label_text);
 }
@@ -307,6 +328,7 @@ static void activate(GtkApplication *app, gpointer user_data)
 int main(int argc, char *argv[])
 {
   userInput = string_memory_allocate(); // Initialize the input string
+  displayString = string_memory_allocate(); // Initialize the display string
 
 #ifdef GTK_SRCDIR
   g_chdir(GTK_SRCDIR);
@@ -319,5 +341,6 @@ int main(int argc, char *argv[])
   g_object_unref(calculatorApp);
 
   free(userInput);
+  free(displayString);
   return status;
 }
