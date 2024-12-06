@@ -1,4 +1,4 @@
-The Calculator Method [Version v1.0.0]
+The Calculator Method [Version v2.0.0]
 
 	
 Project Description	
@@ -13,28 +13,34 @@ GUI which provides a straightforward and efficient way to perform calculations, 
 Features 
   -  Basic arithmetic operations: addition, subtraction, multiplication, and division.
   -  Includes parentheses to allow the user to order their operations in a specific way.
-  -  A user-friendly GUI that includes buttons 0-9, operations, parentheses, clear, and equals.
+  -  Includes a negative toggle to allow input for negative numbers.
+  -  A user-friendly GUI that includes buttons 0-9, arithmetic operations, negative toggle, parentheses, clear, and equals.
   -  Includes a help button to guide users on how to use the calculator.
 
 
 Getting Started
-This calculator is a command-line utility, such that it requires access to the various file that were used to 
+This calculator is a command-line utility, which requires access to the various file that were used to 
 develop the program. The following steps can guide you on how to set up the calculator for your own usage.
   1.  Clone the repository: 
 	  git clone https://github.com/Sam-Scott-McMaster/the-team-assignment-team-17-method-men
   2.  NOTE: To use the GUI you will need to install the required libraries, which involves downloading and 
       setting up the GTK toolkit
-	  sudo apt install libgtk-3-dev
+	  sudo apt install libgtk-4-dev
   3.  Compile the program using the Makefile:
-	  make
+	  make main-calculator
   4.  Run the application:
 	  ./calculator
+
 
 How to Use
   1.  Launch the app in the command-line to open the calculator interface.
   2.  Use the buttons on the GUI to perform operations of your choosing.
+	a) Enter numbers using the digit buttons (0-9)
+	b) Select an operation (+, -, , /) to apply to the numbers.
+	c) Use parentheses to prioritize parts of the calculation.
   3.  Click the equals button when you would like to perform the calculation.
   4.  Select the clear button, to clear all input numbers and operations.
+  5.  Press the help button to view the guide in the terminal.
 
 
 Usage Examples
