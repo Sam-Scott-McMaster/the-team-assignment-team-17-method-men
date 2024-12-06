@@ -235,9 +235,9 @@ static void on_negative_button_clicked(GtkButton *button, gpointer user_data)
  */
 static void on_help_button_clicked(GtkButton *button, gpointer user_data)
 {
-  g_print("Calculator Application Help\n\n");
+  g_print("Calculator Application Help (v2.0.0)\n\n");
   g_print("This calculator application allows you to perform basic arithmetic operations.\n");
-  g_print("Use the Help button in the application for quick guidance.\n\n");
+  g_print("Use the Help button in the application for guidance.\n\n");
   g_print("Features:\n");
   g_print("  - Supported Operations:\n");
   g_print("      +   Addition (e.g., 5 + 3)\n");
@@ -245,12 +245,11 @@ static void on_help_button_clicked(GtkButton *button, gpointer user_data)
   g_print("      *   Multiplication (e.g., 4 * 7)\n");
   g_print("      /   Division (e.g., 9 / 3)\n");
   g_print("      +/- Negativity Toggle (e.g., press +/- to toggle 5 to -5)\n");
-  g_print("      ( ) Parentheses for grouping expressions (note: parentheses cannot be nested).\n\n");
+  g_print("      ( ) Parentheses for grouping expressions.\n\n");
   g_print("How to Use:\n");
   g_print("  1. Enter numbers using the digit buttons (0-9).\n");
-  g_print("  2. Select an operation (+, -, *, /) to apply to the numbers.\n");
-  g_print("  3. Use parentheses to prioritize parts of the calculation (e.g., 5 * (3 + 2)).\n");
-  g_print("      - Nested parentheses are not supported.\n");
+  g_print("  2. Select an operation (+, -, , /) to apply to the numbers.\n");
+  g_print("  3. Use parentheses to prioritize parts of the calculation (e.g., 5 (3 + 2)).\n");
   g_print("  4. Press \"=\" to calculate and display the result.\n");
   g_print("  5. Press \"Clear\" to reset the input field for a new calculation.\n");
   g_print("  6. Press the \"Help\" button anytime to view this guide in the terminal.\n\n");
@@ -258,10 +257,6 @@ static void on_help_button_clicked(GtkButton *button, gpointer user_data)
   g_print("  - Simple Calculation: 12 + 4 = 16\n");
   g_print("  - Parentheses: 7 * (5 + 3) = 56\n");
   g_print("  - Multi-step Calculation: 8 / 2 + 3 * 4 = 14\n\n");
-  g_print("Notes:\n");
-  g_print("  - Decimal numbers are supported (e.g., 3.14, 0.5).\n");
-  g_print("  - Invalid inputs or unsupported formats will display an error.\n");
-  g_print("  - The application does not support nested parentheses or advanced operations like exponentiation.\n\n");
 }
 
 static void activate(GtkApplication *app, gpointer user_data)
